@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign UP</title>
+    <style>
+        /* Style the form */
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        /* Style the input fields */
+        input[type="text"], input[type="password"] {
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        
+        /* Style the submit button */
+        input[type="submit"] {
+          width: 20%;
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+          background-color: #45a049;
+        }
+        
+        /* Style the error message */
+        #error-message {
+          color: red;
+          font-weight: bold;
+          text-align: center;
+        }
+        h2{
+            text-align: center;
+            color: crimson;
+        }
+      </style>
+</head>
+
+
+    <body>
+        <h2>Sign Up </h2>
+        <form id="signup-form">
+          <label for="username">Username:</label><br>
+          <input type="text" id="username" name="username"> <br>
+          <label for="email">Email:</label><br>
+          <input type="text" id="email" name="email"><br>
+          <label for="password">Password:</label><br>
+          <input type="password" id="password" name="password"><br>
+          <label for="password-confirm">Confirm Password:</label><br>
+          <input type="password" id="password-confirm" name="password-confirm"> <br><br>
+          <input type="submit" value="Sign Up">
+        </form> 
+        <div id="error-message"></div>
+        
+        <script>
+          const form = document.getElementById('signup-form');
+          const errorMessage = document.getElementById('error-message');
+          
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            const username = form['username'].value;
+            const email = form['email'].value;
+            const password = form['password'].value;
+            const passwordConfirm = form['password-confirm'].value;
+            
+            // Validate username
+            if (username.length < 3 || username.length > 25) {
+              errorMessage.textContent = 'Username must be between 3 and 25 characters';
+              return;
+            }
+            
+            // Validate email
+            const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+            if (!emailRegex.test(email)) {
+              errorMessage.textContent = 'Email is not valid';
+              return;
+            }
+            
+            // Validate password
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+            if (!passwordRegex.test(password)) {
+              errorMessage.textContent = 'Password must contain at least 8 characters, including 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character';
+              return;
+            }
+            
+            // Validate password confirmation
+            if (password !== passwordConfirm)  {
+              errorMessage.textContent = 'Password confirmation does not match password';
+              return;
+            }
+            
+            // If all validations pass, redirect to index.html
+            window.location.href = 'index.html';
+          });
+        </script>
+      </body>
+
+</html>
